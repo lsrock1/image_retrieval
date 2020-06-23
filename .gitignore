@@ -1,0 +1,4 @@
+*.pth
+*.pyc
+resources
+.DS_Store

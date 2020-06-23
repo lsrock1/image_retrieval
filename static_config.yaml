@@ -1,0 +1,11 @@
+FEATURE_PATH: 'resources/extracted_features'
+DB_IMAGES_PATH: 'resources/images'
+QUERY_IMAGES_PATH: 'resources/query_images'
+MODEL_PATH: 'resources/models/model.pth'
+
+MODEL:
+  DEVICE: 'cuda'
+  NUM_CLASSES: 400
+  DIM: 2048 # should be shrinked
+  DB_FEATURE_SIZE: 10000
+  OFFLINE_BS: 100
