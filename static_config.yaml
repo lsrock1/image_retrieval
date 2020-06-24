@@ -1,7 +1,7 @@
-FEATURE_PATH: 'resources/extracted_features'
-DB_IMAGES_PATH: 'resources/images'
-QUERY_IMAGES_PATH: 'resources/query_images'
-MODEL_PATH: 'resources/models/model.pth'
+FEATURE_PATH: 'IMAGE_DB/extracted_features'
+DB_IMAGES_PATH: 'IMAGE_DB/images'
+QUERY_IMAGES_PATH: 'IMAGE_DB/query_images'
+MODEL_PATH: 'IMAGE_DB/models/model.pth'
 
 MODEL:
   DEVICE: 'cuda'
@@ -9,3 +9,19 @@ MODEL:
   DIM: 2048 # should be shrinked
   DB_FEATURE_SIZE: 10000
   OFFLINE_BS: 100
+
+AUG:
+  IMAGE_SIZE: (128, 128,) # width, height
+  ILLUMINATION: False
+  RANDOM_ERASE: True
+  JITTER: False
+
+TRAIN:
+  BS: 64
+  NUM_INSTANCES: 4
+  LR: 0.0003
+  WEIGHT_DECAY: 0.00005
+  SCHEDULER: 
+    STEP: (20, 40)
+    GAMMA: 0.1
+  EPOCHS: 60

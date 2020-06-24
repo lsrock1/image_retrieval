@@ -4,6 +4,7 @@ from torch import nn
 import copy
 import numpy as np
 from utils.singleton import SingletonInstance
+from .transforms import transforms_test
 
 
 class Model(nn.Module, SingletonInstance):
@@ -38,10 +39,24 @@ class Model(nn.Module, SingletonInstance):
         return features, clas
 
 
-def build_model(cfg):
+def build_model(cfg, from_scratch=False):
     model = Model.instance(cfg.MODEL.NUM_CLASSES)
     model.to(cfg.MODEL.DEVICE)
     loaded = torch.load(cfg.MODEL_PATH)
+    model.load_state_dict(loaded['model'])
+    return model
+
+
+def build_training_model(cfg):
+    model = Model(cfg.MODEL.num_classes)
+    model.to(cfg.MODEL.DEVICE)
+    return model
+
+
+def load_new_weights(cfg, new_path):
+    model = Model.instance(cfg.MODEL.NUM_CLASSES)
+    model.to(cfg.MODEL.DEVICE)
+    loaded = torch.load(new_path)
     model.load_state_dict(loaded['model'])
     return model
 
@@ -50,8 +65,8 @@ def extracting(cfg, image):
     with torch.no_grad():
         model.eval()
         model = Model.instance(cfg.MODEL.NUM_CLASSES)
-        assert isinstance(image, np.ndarray)
-        image = torch.from_numpy(image)
-        image = transforms(image)
+        # assert isinstance(image, np.ndarray)
+        # image = torch.from_numpy(image)
+        image = transforms_test(image)
         image = image.to(cfg.MODEL.DEVICE)
         return model(image)

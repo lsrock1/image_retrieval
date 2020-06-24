@@ -55,3 +55,11 @@ def init_engine():
 
     FAISS.instance(cfg)
     extractor.init_model(cfg)
+
+
+def search(image):
+    feature = extractor.online(image)
+    faiss_instance = FAISS.instance()
+    results = faiss_instance.search(feature)
+
+    return results

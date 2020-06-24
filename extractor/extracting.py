@@ -2,15 +2,11 @@ from .model import extracting
 from pathlib import Path
 
 
-def offline(cfg, include_query=False):
+def offline(cfg):
     # update from all images
     # using mini batch
     db_image_path = Path(cfg.DB_IMAGES_PATH)
     db_images = db_image_path.glob('*')
-    if include_query:
-        query_image_path = Path(cfg.QUERY_IMAGES_PATH)
-        query_images = query_image_path.glob('*')
-        db_images = db_images + query_images
     
     feature_results = []
     extracting()
